@@ -131,36 +131,40 @@ public protocol ScreenLoading {
 // MARK: ScreenLoading Basic Implementation [WIP]
 //
 //extension SomeScreen: ScreenLoading {
-//
-//    func load(withProvider provider: ScreenProviding) -> Future<[SomeScreen], Error> {
+//    
+//    public func load(withProvider provider: ScreenProviding) -> Future<[SomeScreen], Error> {
 //        Future { promise in
-//            let headerViewDestinations = headerView?.destinations ?? []
-//            let footerViewDestinations = footerView?.destinations ?? []
-//            let destinations = headerViewDestinations +
-//                someView.destinations +
-//                footerViewDestinations
-//
-//            let task = Publishers.MergeMany(
-//                destinations.filter { destination in
-//                    destination.type == .screen
-//                }
-//                .map { destination in
-//                    provider.screen(forID: destination.toID).eraseToAnyPublisher()
-//                }
-//                .publisher
-//                .collect()
+//            var bag = [AnyCancellable]()
+//            var screens = [SomeScreen]()
+//            
+//            Publishers.MergeMany(
+//                destinations
+//                    .filter { $0.type == .screen }
+//                    .map { destination in
+//                        provider.screen(forID: destination.toID)
+//                    }.lazy
+//                    .publisher
+//                    .collect()
 //            )
-//
-//
-//
-//
+//            .sink(receiveCompletion: { _ in }) { (result) in
+//                
+////                result.forEach { futureScreen in
+////                    futureScreen
+////                        .sink(receiveCompletion: { _ in }) { (screen) in
+////                            screens.append(screen)
+////                        }
+////                        .store(in: &bag)
+////                }
+//            }
+//            .store(in: &bag)
+//            
 //        }
 //    }
 //}
 
 public extension SomeView {
     var destinations: [Destination] {
-        guard let container = container else {
+        guard let someContainer = someContainer else {
             if let someLabel = someLabel,
                let destination = someLabel.destination {
                 return [destination]
@@ -182,11 +186,10 @@ public extension SomeView {
                 return destinations + subViewDestinations
             }
             
-            
             return []
         }
         
-        return container.views
+        return someContainer.views
             .map(\.destinations)
             .reduce([], +)
     }
