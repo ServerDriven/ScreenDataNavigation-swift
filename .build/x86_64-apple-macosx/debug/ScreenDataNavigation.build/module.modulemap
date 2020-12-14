@@ -1,4 +1,0 @@
-module ScreenDataNavigation {
-    header "/Users/leif/Development/_0xOSS/_serverDriven/ScreenDataNavigation-swift/.build/x86_64-apple-macosx/debug/ScreenDataNavigation.build/ScreenDataNavigation-Swift.h"
-    requires objc
-}

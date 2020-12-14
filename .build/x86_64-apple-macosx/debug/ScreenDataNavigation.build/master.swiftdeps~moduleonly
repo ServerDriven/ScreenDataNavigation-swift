@@ -1,5 +1,0 @@
-version: "Apple Swift version 5.3.1 (swiftlang-1200.0.41 clang-1200.0.32.8)"
-options: "7585332546746e10db73d54c2aafca24"
-build_time: [1605578495, 323355000]
-inputs:
-  "/Users/leif/Development/_0xOSS/_serverDriven/ScreenDataNavigation-swift/Sources/ScreenDataNavigation/ScreenDataNavigation.swift": [1605578468, 364137596]
