@@ -1,0 +1,19 @@
+{
+  "builtTestProducts" : [
+    {
+      "binaryPath" : "\/Users\/leif\/Development\/_0xOSS\/_serverDriven\/ScreenDataNavigation-swift\/.build\/x86_64-apple-macosx\/debug\/ScreenDataNavigationPackageTests.xctest\/Contents\/MacOS\/ScreenDataNavigationPackageTests",
+      "packageName" : "ScreenDataNavigation",
+      "productName" : "ScreenDataNavigationPackageTests"
+    }
+  ],
+  "copyCommands" : {
+
+  },
+  "swiftTargetMap" : {
+    "C.ScreenDataNavigation-debug.module" : "ScreenDataNavigation",
+    "C.ScreenDataNavigationTests-debug.module" : "ScreenDataNavigationTests"
+  },
+  "testDiscoveryCommands" : {
+
+  }
+}

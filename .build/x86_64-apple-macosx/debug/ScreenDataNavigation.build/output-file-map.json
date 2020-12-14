@@ -1,0 +1,11 @@
+{
+  "": {
+    "swift-dependencies": "/Users/leif/Development/_0xOSS/_serverDriven/ScreenDataNavigation-swift/.build/x86_64-apple-macosx/debug/ScreenDataNavigation.build/master.swiftdeps"
+  },
+  "/Users/leif/Development/_0xOSS/_serverDriven/ScreenDataNavigation-swift/Sources/ScreenDataNavigation/ScreenDataNavigation.swift": {
+    "dependencies": "/Users/leif/Development/_0xOSS/_serverDriven/ScreenDataNavigation-swift/.build/x86_64-apple-macosx/debug/ScreenDataNavigation.build/ScreenDataNavigation.d",
+    "object": "/Users/leif/Development/_0xOSS/_serverDriven/ScreenDataNavigation-swift/.build/x86_64-apple-macosx/debug/ScreenDataNavigation.build/ScreenDataNavigation.swift.o",
+    "swiftmodule": "/Users/leif/Development/_0xOSS/_serverDriven/ScreenDataNavigation-swift/.build/x86_64-apple-macosx/debug/ScreenDataNavigation.build/ScreenDataNavigation~partial.swiftmodule",
+    "swift-dependencies": "/Users/leif/Development/_0xOSS/_serverDriven/ScreenDataNavigation-swift/.build/x86_64-apple-macosx/debug/ScreenDataNavigation.build/ScreenDataNavigation.swiftdeps"
+  }
+}
