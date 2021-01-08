@@ -60,7 +60,7 @@ public struct URLScreenProvider: ScreenProviding {
                 } catch {
                     promise(.failure(error))
                 }
-            }
+            }.resume()
         }
     }
 }
