@@ -5,7 +5,7 @@ import Foundation
 // MARK: ScreenProviding
 
 public protocol ScreenProviding {
-    func screen(forID id: String) -> Future<SomeScreen, Error>
+    func screen(forID id: String) -> AnyPublisher<SomeScreen, Error>
 }
 
 // MARK: ScreenProviding Basic Implementation
@@ -17,12 +17,13 @@ public struct MockScreenProvider: ScreenProviding {
         self.mockScreen = mockScreen
     }
     
-    public func screen(forID id: String) -> Future<SomeScreen, Error> {
+    public func screen(forID id: String) -> AnyPublisher<SomeScreen, Error> {
         Future { promise in
             var screen = mockScreen
             screen.id = id
             promise(.success(screen))
         }
+        .eraseToAnyPublisher()
     }
 }
 
@@ -38,7 +39,7 @@ public struct URLScreenProvider: ScreenProviding {
         self.baseURL = baseURL
     }
     
-    public func screen(forID id: String) -> Future<SomeScreen, Error> {
+    public func screen(forID id: String) -> AnyPublisher<SomeScreen, Error> {
         Future { promise in
             URLSession.shared.dataTask(with: baseURL.appendingPathComponent(id)) { (data, response, error) in
                 if let error = error {
@@ -62,6 +63,7 @@ public struct URLScreenProvider: ScreenProviding {
                 }
             }.resume()
         }
+        .eraseToAnyPublisher()
     }
 }
 
@@ -76,7 +78,7 @@ public struct UserDefaultScreenProvider: ScreenProviding {
         self.baseKey = baseKey
     }
     
-    public func screen(forID id: String) -> Future<SomeScreen, Error> {
+    public func screen(forID id: String) -> AnyPublisher<SomeScreen, Error> {
         Future { promise in
             guard let data = UserDefaults.standard.data(forKey: baseKey + id) else {
                 promise(.failure(UserDefaultScreenProviderError.noData))
@@ -89,12 +91,13 @@ public struct UserDefaultScreenProvider: ScreenProviding {
                 promise(.failure(error))
             }
         }
+        .eraseToAnyPublisher()
     }
 }
 
 // MARK: ScreenStoring
 public protocol ScreenStoring {
-    func store(screens: [SomeScreen]) -> Future<Void, Error>
+    func store(screens: [SomeScreen]) -> AnyPublisher<Void, Error>
 }
 
 // MARK: ScreenStoring Basic Implementation
@@ -106,7 +109,7 @@ public struct UserDefaultScreenStorer: ScreenStoring {
         self.baseKey = baseKey
     }
     
-    public func store(screens: [SomeScreen]) -> Future<Void, Error> {
+    public func store(screens: [SomeScreen]) -> AnyPublisher<Void, Error> {
         Future { promise in
             do {
                 try screens.forEach { screen in
@@ -120,45 +123,27 @@ public struct UserDefaultScreenStorer: ScreenStoring {
                 promise(.failure(error))
             }
         }
+        .eraseToAnyPublisher()
     }
 }
 
 // MARK: ScreenLoading
 public protocol ScreenLoading {
-    func load(withProvider provider: ScreenProviding) -> Future<[SomeScreen], Error>
+    func load(withProvider provider: ScreenProviding) -> AnyPublisher<[SomeScreen], Error>
 }
 
-// MARK: ScreenLoading Basic Implementation [WIP]
+//// MARK: ScreenLoading Basic Implementation [WIP]
 //
 //extension SomeScreen: ScreenLoading {
 //    
-//    public func load(withProvider provider: ScreenProviding) -> Future<[SomeScreen], Error> {
-//        Future { promise in
-//            var bag = [AnyCancellable]()
-//            var screens = [SomeScreen]()
-//            
-//            Publishers.MergeMany(
-//                destinations
-//                    .filter { $0.type == .screen }
-//                    .map { destination in
-//                        provider.screen(forID: destination.toID)
-//                    }.lazy
-//                    .publisher
-//                    .collect()
-//            )
-//            .sink(receiveCompletion: { _ in }) { (result) in
-//                
-////                result.forEach { futureScreen in
-////                    futureScreen
-////                        .sink(receiveCompletion: { _ in }) { (screen) in
-////                            screens.append(screen)
-////                        }
-////                        .store(in: &bag)
-////                }
-//            }
-//            .store(in: &bag)
-//            
-//        }
+//    public func load(withProvider provider: ScreenProviding) -> AnyPublisher<[SomeScreen], Error> {
+//        Publishers.MergeMany(
+//            destinations
+//                .filter { $0.type == .screen }
+//                .map { destination in
+//                    provider.screen(forID: destination.toID)
+//                }
+//        )
 //    }
 //}
 
