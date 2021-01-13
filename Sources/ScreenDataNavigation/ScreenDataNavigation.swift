@@ -4,12 +4,13 @@ import Foundation
 
 // MARK: ScreenProviding
 
+@available(iOS 13.0, OSX 10.15, *)
 public protocol ScreenProviding {
     func screen(forID id: String) -> AnyPublisher<SomeScreen, Error>
 }
 
 // MARK: ScreenProviding Basic Implementation
-
+@available(iOS 13.0, OSX 10.15, *)
 public struct MockScreenProvider: ScreenProviding {
     public var mockScreen: SomeScreen
     
@@ -27,6 +28,7 @@ public struct MockScreenProvider: ScreenProviding {
     }
 }
 
+@available(iOS 13.0, OSX 10.15, *)
 public struct URLScreenProvider: ScreenProviding {
     public enum URLScreenProviderError: Error {
         case noResponse
@@ -67,6 +69,7 @@ public struct URLScreenProvider: ScreenProviding {
     }
 }
 
+@available(iOS 13.0, OSX 10.15, *)
 public struct UserDefaultScreenProvider: ScreenProviding {
     public enum UserDefaultScreenProviderError: Error {
         case noData
@@ -96,12 +99,13 @@ public struct UserDefaultScreenProvider: ScreenProviding {
 }
 
 // MARK: ScreenStoring
+@available(iOS 13.0, OSX 10.15, *)
 public protocol ScreenStoring {
     func store(screens: [SomeScreen]) -> AnyPublisher<Void, Error>
 }
 
 // MARK: ScreenStoring Basic Implementation
-
+@available(iOS 13.0, OSX 10.15, *)
 public struct UserDefaultScreenStorer: ScreenStoring {
     public var baseKey: String
     
@@ -128,12 +132,13 @@ public struct UserDefaultScreenStorer: ScreenStoring {
 }
 
 // MARK: ScreenLoading
+@available(iOS 13.0, OSX 10.15, *)
 public protocol ScreenLoading {
     func load(withProvider provider: ScreenProviding) -> AnyPublisher<[SomeScreen], Error>
 }
 
 //// MARK: ScreenLoading Basic Implementation [WIP]
-//
+//@available(iOS 13.0, OSX 10.15, *)
 //extension SomeScreen: ScreenLoading {
 //    
 //    public func load(withProvider provider: ScreenProviding) -> AnyPublisher<[SomeScreen], Error> {
