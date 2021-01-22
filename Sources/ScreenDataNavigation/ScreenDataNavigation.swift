@@ -169,9 +169,11 @@ public extension SomeView {
                 let destinations = [someCustomView.destination,
                                     someCustomView.someImage?.destination]
                     .compactMap { $0 }
-                let subViewDestinations = someCustomView.views
-                    .map(\.destinations)
-                    .reduce([], +)
+                guard let subViewDestinations = someCustomView.views?
+                        .map(\.destinations)
+                        .reduce([], +) else {
+                    return destinations
+                }
                 
                 return destinations + subViewDestinations
             }
