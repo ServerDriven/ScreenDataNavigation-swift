@@ -4,12 +4,13 @@ import Foundation
 
 // MARK: ScreenProviding
 
+@available(iOS 13.0, OSX 10.15, *)
 public protocol ScreenProviding {
-    func screen(forID id: String) -> Future<SomeScreen, Error>
+    func screen(forID id: String) -> AnyPublisher<SomeScreen, Error>
 }
 
 // MARK: ScreenProviding Basic Implementation
-
+@available(iOS 13.0, OSX 10.15, *)
 public struct MockScreenProvider: ScreenProviding {
     public var mockScreen: SomeScreen
     
@@ -17,15 +18,17 @@ public struct MockScreenProvider: ScreenProviding {
         self.mockScreen = mockScreen
     }
     
-    public func screen(forID id: String) -> Future<SomeScreen, Error> {
+    public func screen(forID id: String) -> AnyPublisher<SomeScreen, Error> {
         Future { promise in
             var screen = mockScreen
             screen.id = id
             promise(.success(screen))
         }
+        .eraseToAnyPublisher()
     }
 }
 
+@available(iOS 13.0, OSX 10.15, *)
 public struct URLScreenProvider: ScreenProviding {
     public enum URLScreenProviderError: Error {
         case noResponse
@@ -38,7 +41,7 @@ public struct URLScreenProvider: ScreenProviding {
         self.baseURL = baseURL
     }
     
-    public func screen(forID id: String) -> Future<SomeScreen, Error> {
+    public func screen(forID id: String) -> AnyPublisher<SomeScreen, Error> {
         Future { promise in
             URLSession.shared.dataTask(with: baseURL.appendingPathComponent(id)) { (data, response, error) in
                 if let error = error {
@@ -62,9 +65,11 @@ public struct URLScreenProvider: ScreenProviding {
                 }
             }.resume()
         }
+        .eraseToAnyPublisher()
     }
 }
 
+@available(iOS 13.0, OSX 10.15, *)
 public struct UserDefaultScreenProvider: ScreenProviding {
     public enum UserDefaultScreenProviderError: Error {
         case noData
@@ -76,7 +81,7 @@ public struct UserDefaultScreenProvider: ScreenProviding {
         self.baseKey = baseKey
     }
     
-    public func screen(forID id: String) -> Future<SomeScreen, Error> {
+    public func screen(forID id: String) -> AnyPublisher<SomeScreen, Error> {
         Future { promise in
             guard let data = UserDefaults.standard.data(forKey: baseKey + id) else {
                 promise(.failure(UserDefaultScreenProviderError.noData))
@@ -89,16 +94,18 @@ public struct UserDefaultScreenProvider: ScreenProviding {
                 promise(.failure(error))
             }
         }
+        .eraseToAnyPublisher()
     }
 }
 
 // MARK: ScreenStoring
+@available(iOS 13.0, OSX 10.15, *)
 public protocol ScreenStoring {
-    func store(screens: [SomeScreen]) -> Future<Void, Error>
+    func store(screens: [SomeScreen]) -> AnyPublisher<Void, Error>
 }
 
 // MARK: ScreenStoring Basic Implementation
-
+@available(iOS 13.0, OSX 10.15, *)
 public struct UserDefaultScreenStorer: ScreenStoring {
     public var baseKey: String
     
@@ -106,7 +113,7 @@ public struct UserDefaultScreenStorer: ScreenStoring {
         self.baseKey = baseKey
     }
     
-    public func store(screens: [SomeScreen]) -> Future<Void, Error> {
+    public func store(screens: [SomeScreen]) -> AnyPublisher<Void, Error> {
         Future { promise in
             do {
                 try screens.forEach { screen in
@@ -120,45 +127,28 @@ public struct UserDefaultScreenStorer: ScreenStoring {
                 promise(.failure(error))
             }
         }
+        .eraseToAnyPublisher()
     }
 }
 
 // MARK: ScreenLoading
+@available(iOS 13.0, OSX 10.15, *)
 public protocol ScreenLoading {
-    func load(withProvider provider: ScreenProviding) -> Future<[SomeScreen], Error>
+    func load(withProvider provider: ScreenProviding) -> AnyPublisher<[SomeScreen], Error>
 }
 
-// MARK: ScreenLoading Basic Implementation [WIP]
-//
+//// MARK: ScreenLoading Basic Implementation [WIP]
+//@available(iOS 13.0, OSX 10.15, *)
 //extension SomeScreen: ScreenLoading {
 //    
-//    public func load(withProvider provider: ScreenProviding) -> Future<[SomeScreen], Error> {
-//        Future { promise in
-//            var bag = [AnyCancellable]()
-//            var screens = [SomeScreen]()
-//            
-//            Publishers.MergeMany(
-//                destinations
-//                    .filter { $0.type == .screen }
-//                    .map { destination in
-//                        provider.screen(forID: destination.toID)
-//                    }.lazy
-//                    .publisher
-//                    .collect()
-//            )
-//            .sink(receiveCompletion: { _ in }) { (result) in
-//                
-////                result.forEach { futureScreen in
-////                    futureScreen
-////                        .sink(receiveCompletion: { _ in }) { (screen) in
-////                            screens.append(screen)
-////                        }
-////                        .store(in: &bag)
-////                }
-//            }
-//            .store(in: &bag)
-//            
-//        }
+//    public func load(withProvider provider: ScreenProviding) -> AnyPublisher<[SomeScreen], Error> {
+//        Publishers.MergeMany(
+//            destinations
+//                .filter { $0.type == .screen }
+//                .map { destination in
+//                    provider.screen(forID: destination.toID)
+//                }
+//        )
 //    }
 //}
 
@@ -179,9 +169,11 @@ public extension SomeView {
                 let destinations = [someCustomView.destination,
                                     someCustomView.someImage?.destination]
                     .compactMap { $0 }
-                let subViewDestinations = someCustomView.views
-                    .map(\.destinations)
-                    .reduce([], +)
+                guard let subViewDestinations = someCustomView.views?
+                        .map(\.destinations)
+                        .reduce([], +) else {
+                    return destinations
+                }
                 
                 return destinations + subViewDestinations
             }
