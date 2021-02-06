@@ -83,7 +83,7 @@ public struct UserDefaultScreenProvider: ScreenProviding {
     
     public func screen(forID id: String) -> AnyPublisher<SomeScreen, Error> {
         Future { promise in
-            guard let data = UserDefaults.standard.data(forKey: baseKey + id) else {
+            guard let data = UserDefaults.standard.data(forKey: key(forID: id)) else {
                 promise(.failure(UserDefaultScreenProviderError.noData))
                 return
             }
@@ -95,6 +95,14 @@ public struct UserDefaultScreenProvider: ScreenProviding {
             }
         }
         .eraseToAnyPublisher()
+    }
+    
+    public func key(forID id: String) -> String {
+        "\(baseKey)-\(id)"
+    }
+    
+    public func hasScreen(forId id: String) -> Bool {
+        UserDefaults.standard.data(forKey: key(forID: id)) != nil
     }
 }
 
@@ -118,7 +126,7 @@ public struct UserDefaultScreenStorer: ScreenStoring {
             do {
                 try screens.forEach { screen in
                     let data = try JSONEncoder().encode(screen)
-                    let key = baseKey + (screen.id ?? "")
+                    let key = self.key(forID: screen.id ?? "")
                     UserDefaults.standard.set(data,
                                               forKey: key)
                 }
@@ -128,6 +136,10 @@ public struct UserDefaultScreenStorer: ScreenStoring {
             }
         }
         .eraseToAnyPublisher()
+    }
+    
+    public func key(forID id: String) -> String {
+        "\(baseKey)-\(id)"
     }
 }
 
