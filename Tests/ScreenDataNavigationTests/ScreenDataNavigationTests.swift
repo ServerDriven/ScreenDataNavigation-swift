@@ -20,7 +20,7 @@ final class ScreenDataNavigationTests: XCTestCase {
         XCTAssertEqual(destinations.map { $0.toID },
                        screen.destinations.map { $0.toID })
     }
-
+    
     static var allTests = [
         ("testExample", testExample),
     ]
