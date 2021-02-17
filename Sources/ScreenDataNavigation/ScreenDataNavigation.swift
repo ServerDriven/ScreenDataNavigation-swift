@@ -173,10 +173,6 @@ public extension SomeView {
             } else if let someImage = someImage,
                       let destination = someImage.destination {
                 return [destination]
-            } else if let someLabeledImage = someLabeledImage {
-                return [someLabeledImage.destination,
-                        someLabeledImage.someImage.destination]
-                    .compactMap { $0 }
             } else if let someCustomView = someCustomView {
                 let destinations = [someCustomView.destination,
                                     someCustomView.someImage?.destination]

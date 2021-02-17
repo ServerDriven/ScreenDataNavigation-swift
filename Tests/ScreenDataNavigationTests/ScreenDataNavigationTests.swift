@@ -10,7 +10,6 @@ final class ScreenDataNavigationTests: XCTestCase {
         ]
         
         let screen = SomeScreen(title: "Title",
-                                subtitle: nil,
                                 backgroundColor: SomeColor(red: 0, green: 0, blue: 0),
                                 headerView: SomeView(type: .container, someContainer: SomeContainerView(isScrollable: true, axis: .vertical, views: [
                                     SomeView(type: .label, someLabel: SomeLabel(title: "Hello World", subtitle: nil, font: .largeTitle, style: nil, destination: Destination(type: .url, toID: "https://github.com/ServerDriven/ScreenData")))
