@@ -5,9 +5,9 @@
         "package": "ScreenData",
         "repositoryURL": "https://github.com/ServerDriven/ScreenData-swift",
         "state": {
-          "branch": "develop",
-          "revision": "b4a3ac215e82ab47dd1b8a018bc3a0e6fb8ae24b",
-          "version": null
+          "branch": null,
+          "revision": "5fdd95437ac874124e40a2e46ec26075a3e5308f",
+          "version": "0.4.0"
         }
       }
     ]
