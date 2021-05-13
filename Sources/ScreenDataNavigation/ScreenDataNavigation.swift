@@ -149,20 +149,21 @@ public protocol ScreenLoading {
     func load(withProvider provider: ScreenProviding) -> AnyPublisher<[SomeScreen], Error>
 }
 
-//// MARK: ScreenLoading Basic Implementation [WIP]
-//@available(iOS 13.0, OSX 10.15, *)
-//extension SomeScreen: ScreenLoading {
-//    
-//    public func load(withProvider provider: ScreenProviding) -> AnyPublisher<[SomeScreen], Error> {
-//        Publishers.MergeMany(
-//            destinations
-//                .filter { $0.type == .screen }
-//                .map { destination in
-//                    provider.screen(forID: destination.toID)
-//                }
-//        )
-//    }
-//}
+// MARK: ScreenLoading Basic Implementation
+@available(iOS 13.0, OSX 10.15, *)
+extension SomeScreen: ScreenLoading {
+    
+    public func load(withProvider provider: ScreenProviding) -> AnyPublisher<[SomeScreen], Error> {
+        Publishers.MergeMany(
+            destinations.filter { $0.type == .screen }
+                .map { destination in
+                    provider.screen(forID: destination.toID)
+                }
+        )
+        .collect()
+        .eraseToAnyPublisher()
+    }
+}
 
 public extension SomeView {
     var destinations: [Destination] {
