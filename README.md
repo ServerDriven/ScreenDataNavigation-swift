@@ -30,4 +30,15 @@ public protocol ScreenStoring {
 public struct UserDefaultScreenStorer: ScreenStoring {
     // ...
 }
+
+// MARK: ScreenLoading
+public protocol ScreenLoading {
+    func load(withProvider provider: ScreenProviding) -> AnyPublisher<[SomeScreen], Error>
+}
+
+// MARK: ScreenLoading Basic Implementation
+extension SomeScreen: ScreenLoading {
+    // ...
+}
 ```
+
