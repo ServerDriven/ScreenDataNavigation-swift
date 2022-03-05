@@ -20,6 +20,10 @@ public struct UserDefaultScreenProvider: ScreenProviding {
     // ...
 }
 
+public struct FileScreenProvider: ScreenProviding {
+    // ...
+}
+
 // MARK: ScreenStoring
 // Store SomeScreens for later
 
@@ -28,6 +32,10 @@ public protocol ScreenStoring {
 }
 
 public struct UserDefaultScreenStorer: ScreenStoring {
+    // ...
+}
+
+public struct FileScreenStore: ScreenStoring {
     // ...
 }
 
