@@ -31,7 +31,7 @@ public protocol ScreenStoring {
     func store(screens: [SomeScreen]) -> AnyPublisher<Void, Error>
 }
 
-public struct UserDefaultScreenStorer: ScreenStoring {
+public struct UserDefaultScreenStore: ScreenStoring {
     // ...
 }
 
