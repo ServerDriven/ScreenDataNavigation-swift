@@ -98,7 +98,7 @@ public struct UserDefaultScreenProvider: ScreenProviding {
     }
     
     public func key(forID id: String) -> String {
-        "\(baseKey)-\(id)"
+        "\(baseKey)-\(id)".replacingOccurrences(of: "/", with: "-")
     }
     
     public func hasScreen(forId id: String) -> Bool {
@@ -140,7 +140,7 @@ public struct FileScreenProvider: ScreenProviding {
     }
     
     public func key(forID id: String) -> String {
-        "\(baseKey)-\(id)"
+        "\(baseKey)-\(id)".replacingOccurrences(of: "/", with: "-")
     }
     
     public func hasScreen(forId id: String) -> Bool {
@@ -186,7 +186,7 @@ public struct UserDefaultScreenStore: ScreenStoring {
     }
     
     public func key(forID id: String) -> String {
-        "\(baseKey)-\(id)"
+        "\(baseKey)-\(id)".replacingOccurrences(of: "/", with: "-")
     }
 }
 
@@ -221,7 +221,7 @@ public struct FileScreenStore: ScreenStoring {
     }
     
     public func key(forID id: String) -> String {
-        "\(baseKey)-\(id)"
+        "\(baseKey)-\(id)".replacingOccurrences(of: "/", with: "-")
     }
 }
 
