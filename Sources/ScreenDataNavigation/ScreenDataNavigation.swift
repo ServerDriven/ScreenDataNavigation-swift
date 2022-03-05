@@ -161,7 +161,7 @@ public protocol ScreenStoring {
 
 // MARK: ScreenStoring Basic Implementation
 @available(iOS 13.0, OSX 10.15, *)
-public struct UserDefaultScreenStorer: ScreenStoring {
+public struct UserDefaultScreenStore: ScreenStoring {
     public var baseKey: String
     
     public init(baseKey: String) {
@@ -192,7 +192,7 @@ public struct UserDefaultScreenStorer: ScreenStoring {
 
 // MARK: ScreenStoring File Implementation
 @available(iOS 13.0, OSX 10.15, *)
-public struct FileScreenStorer: ScreenStoring {
+public struct FileScreenStore: ScreenStoring {
     public var baseKey: String
     
     public init(baseKey: String) {
