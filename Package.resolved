@@ -2,12 +2,48 @@
   "object": {
     "pins": [
       {
+        "package": "c",
+        "repositoryURL": "https://github.com/0xOpenBytes/c",
+        "state": {
+          "branch": null,
+          "revision": "c3560cbb17338ba6d2ff74b5ffd1a7b5db8d5ddd",
+          "version": "0.2.0"
+        }
+      },
+      {
+        "package": "FLet",
+        "repositoryURL": "https://github.com/0xOpenBytes/FLet",
+        "state": {
+          "branch": null,
+          "revision": "456c08ffa20f3bcf4dff960d00d5ce4dba7a9a19",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "o",
+        "repositoryURL": "https://github.com/0xOpenBytes/o",
+        "state": {
+          "branch": null,
+          "revision": "58e47469bdb61537d7687c7eb4b600db9de476ee",
+          "version": "0.1.0"
+        }
+      },
+      {
         "package": "ScreenData",
         "repositoryURL": "https://github.com/ServerDriven/ScreenData-swift",
         "state": {
           "branch": null,
           "revision": "5fdd95437ac874124e40a2e46ec26075a3e5308f",
           "version": "0.4.0"
+        }
+      },
+      {
+        "package": "t",
+        "repositoryURL": "https://github.com/0xOpenBytes/t",
+        "state": {
+          "branch": null,
+          "revision": "78294df737c524f40267bca42beb8e10ca28aa41",
+          "version": "0.2.0"
         }
       }
     ]
