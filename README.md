@@ -16,10 +16,6 @@ public struct URLScreenProvider: ScreenProviding {
     // ...
 }
 
-public struct UserDefaultScreenProvider: ScreenProviding {
-    // ...
-}
-
 public struct FileScreenProvider: ScreenProviding {
     // ...
 }
@@ -29,10 +25,6 @@ public struct FileScreenProvider: ScreenProviding {
 
 public protocol ScreenStoring {
     func store(screens: [SomeScreen]) -> AnyPublisher<Void, Error>
-}
-
-public struct UserDefaultScreenStore: ScreenStoring {
-    // ...
 }
 
 public struct FileScreenStore: ScreenStoring {
