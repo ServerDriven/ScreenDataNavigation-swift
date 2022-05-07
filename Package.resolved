@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/0xOpenBytes/c",
         "state": {
           "branch": null,
-          "revision": "c3560cbb17338ba6d2ff74b5ffd1a7b5db8d5ddd",
-          "version": "0.2.0"
+          "revision": "92b1779ad2b4c551bdfd93f47b79a1399264b2dd",
+          "version": "1.0.1"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/0xOpenBytes/FLet",
         "state": {
           "branch": null,
-          "revision": "456c08ffa20f3bcf4dff960d00d5ce4dba7a9a19",
-          "version": "1.0.0"
+          "revision": "0ca1cd5a70e9f790bd3ef6f99c14e721bbce2386",
+          "version": "2.0.0"
         }
       },
       {
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/0xOpenBytes/o",
         "state": {
           "branch": null,
-          "revision": "58e47469bdb61537d7687c7eb4b600db9de476ee",
-          "version": "0.1.0"
+          "revision": "2721b5d5feab371ab6e6999a557f9c80f0426228",
+          "version": "0.2.1"
         }
       },
       {
